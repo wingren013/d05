@@ -27,6 +27,31 @@ void		Bureaucrat::promote()
 	this->grade -= 1;
 }
 
+bool		Bureaucrat::signForm(Form &f)
+{
+	try
+	{
+		f.beSigned(*this)
+		std::cout << this->name << " signs " << f.getname() << std::endl;
+	}
+	catch (const Form::GradeTooLowException &e)
+	{
+		std::cout << this->name << " cannot sign " << f.getname() << " because " << e.msg() << std::endl;
+	}
+}
+
+void		executeForm(Form const & form)
+{
+	try
+	{
+		form.execute();
+	}
+	catch (Form::GradeTooLowException &e)
+	{
+		std::cout << e.msg() <<std::endl;
+	}
+}
+
 Bureaucrat::Bureaucrat(): name("No Entry"), grade(150) {}
 
 Bureaucrat::Bureaucrat(std::string name, int g): name(name)
@@ -59,4 +84,12 @@ const std::string Bureaucrat::GradeTooHighException::gradehigh const throw()
 const std::string Bureaucrat::GradeTooLowException::gradelow const throw()
 {
 	return "Grade is too low";
+}
+
+std::stringstream	Bureaucrat::operator<<(Bureaucrat &b)
+{
+	std::stringstream ss;
+	
+	ss << "name: " << b.name << " grade: " << b.grade;
+	return (ss);
 }

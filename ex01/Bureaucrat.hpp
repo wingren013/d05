@@ -10,6 +10,7 @@ class	Bureaucrat
 			int			getgrade();
 			void		demote();
 			void		promote();
+			bool		signForm(Form &f);
 			
 			Bureaucrat();
 			Bureaucrat(std::string name, int grade);
